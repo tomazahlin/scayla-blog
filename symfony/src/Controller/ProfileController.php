@@ -34,6 +34,9 @@ class ProfileController extends AbstractController
             $userData = $userSettingsForm->getData();
             $userRepo = $this->getDoctrine()->getRepository(User::class);
             $userRepo->save($userData);
+
+            $this->addFlash('notice', 'Your changes were successfully saved!');
+            return $this->redirectToRoute('app_secure_home');
         }
 
         return $this->render('home/profile_settings.html.twig', [
@@ -59,6 +62,9 @@ class ProfileController extends AbstractController
 
             $userRepo = $this->getDoctrine()->getRepository(User::class);
             $userRepo->save($currentUser);
+
+            $this->addFlash('notice', 'Your new password was successfully saved!');
+            return $this->redirectToRoute('app_secure_home');
         }
 
         return $this->render('home/profile_settings.html.twig', [
