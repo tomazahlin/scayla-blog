@@ -13,7 +13,6 @@ class UserSettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
             ->add('name')
             ->add('update', SubmitType::class)
         ;
