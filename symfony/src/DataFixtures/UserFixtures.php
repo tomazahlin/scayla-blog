@@ -5,15 +5,15 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
-    private PasswordEncoderInterface $pwEncoder;
+    private UserPasswordEncoderInterface $pwEncoder;
 
-    public function __construct(PasswordEncoderInterface $pwEncoder)
+    public function __construct(UserPasswordEncoderInterface $pwEncoder)
     {
-        $this->$pwEncoder = $pwEncoder;
+        $this->pwEncoder = $pwEncoder;
     }
 
     public function load(ObjectManager $manager)
@@ -24,7 +24,7 @@ class UserFixtures extends Fixture
         $user->setName('Max Mustermann');
         $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
         $user->setStatus(User::STATUS_ACTIVE);
-        $password = $this->pwEncoder->encodePassword('symfony', 'salt');
+        $password = $this->pwEncoder->encodePassword($user, 'symfony');
         $user->setPassword($password);
 
         $manager->persist($user);
