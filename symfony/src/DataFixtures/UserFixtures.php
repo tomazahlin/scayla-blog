@@ -18,16 +18,16 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $user = new User();
-
-        $user->setUsername('scayla');
-        $user->setName('Max Mustermann');
-        $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
-        $user->setStatus(User::STATUS_ACTIVE);
-        $password = $this->pwEncoder->encodePassword($user, 'symfony');
-        $user->setPassword($password);
-
-        $manager->persist($user);
+        for ($i = 0; $i < 10; $i++) {
+            $user = new User();
+            $user->setUsername('scayla' . $i);
+            $user->setName('Max Mustermann');
+            $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+            $user->setStatus(User::STATUS_ACTIVE);
+            $password = $this->pwEncoder->encodePassword($user, 'symfony' . $i);
+            $user->setPassword($password);
+            $manager->persist($user);
+        }
         $manager->flush();
     }
 }
