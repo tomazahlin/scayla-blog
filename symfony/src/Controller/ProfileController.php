@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserPasswordType;
 use App\Form\UserSettingsType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfileController extends AbstractController
 {
@@ -30,7 +32,6 @@ class ProfileController extends AbstractController
 
         if ($userSettingsForm->isSubmitted() && $userSettingsForm->isValid()) {
             $userData = $userSettingsForm->getData();
-            dump($userData);
             $userRepo = $this->getDoctrine()->getRepository(User::class);
             $userRepo->save($userData);
         }
@@ -39,5 +40,31 @@ class ProfileController extends AbstractController
             'userSettingsForm' => $userSettingsForm->createView(),
         ]);
     }
+
+    /**
+     * @Route("/secure/profile/changepassword", name="app_secure_changepassword")
+     */
+    public function changePassword(Request $request, UserPasswordEncoderInterface $pwEncoder): Response
+    {
+        $currentUser = $this->getUser();
+        $changePasswordForm = $this->createForm(UserPasswordType::class, $currentUser);
+
+        $changePasswordForm->handleRequest($request);
+
+        if ($changePasswordForm->isSubmitted() && $changePasswordForm->isValid()) {
+            $newPassword = $changePasswordForm->get('newPassword')->getData();
+
+            $encodedPassword = $pwEncoder->encodePassword($currentUser, $newPassword);
+            $currentUser->setPassword($encodedPassword);
+
+            $userRepo = $this->getDoctrine()->getRepository(User::class);
+            $userRepo->save($currentUser);
+        }
+
+        return $this->render('home/profile_settings.html.twig', [
+            'userSettingsForm' => $changePasswordForm->createView(),
+        ]);
+    }
+
 
 }

@@ -3,10 +3,12 @@
 {% block title -%}
     Grüezi {{ user.name }}!
 {%- endblock %}
+{% block subtitle -%}This is your profile home!{%- endblock %}
 
 {% block body %}
     <div class="box">
-        <a href="{{ path('app_secure_settings') }}">Here</a> you can change your profile.
+        <a href="{{ path('app_secure_settings') }}">Here</a> you can change your profile and
+        <a href="{{ path('app_secure_changepassword') }}">here</a> you can change your password.
     </div>
 
     <div class="box has-text-centered">
