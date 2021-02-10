@@ -21,11 +21,17 @@
                 <a class="navbar-item bd-navbar-item-documentation" href="{{ path('app_secure_home') }}">
                     <span class="is-hidden-desktop-only"> Profile</span>
                 </a>
+                <a class="navbar-item bd-navbar-item-documentation" href="{{ path('app_logout') }}">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <span style="color: red;">Logout</span>
+                    {% endif %}
+                </a>
             </div>
         </div>
         <div id="navMenuProfile" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item bd-navbar-item-documentation" target="_blank" href="https://bulma.io/documentation/">
+                <a class="navbar-item bd-navbar-item-documentation" target="_blank"
+                   href="https://bulma.io/documentation/">
                     <span class="is-hidden-desktop-only"> CSS Documentation</span>
                 </a>
             </div>
