@@ -34,7 +34,12 @@ class User extends AbstractEntity implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private array $roles = [];
+    protected array $roles = [];
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected string $name;
 
     public function getStatus(): int
     {
@@ -103,5 +108,17 @@ class User extends AbstractEntity implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }
