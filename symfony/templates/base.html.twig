@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="/bulma/css/bulma.min.css">
+</head>
+<body>
+<nav id="navbar" class="bd-navbar navbar has-shadow is-spaced">
+    <div class="container">
+        <div id="navMenuHome" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item bd-navbar-item-documentation  is-active" href="{{ path('app_home') }}">
+                    <span class="is-hidden-desktop-only"> Home</span>
+                </a>
+            </div>
+        </div>
+        <div id="navMenuProfile" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item bd-navbar-item-documentation" href="{{ path('app_secure_home') }}">
+                    <span class="is-hidden-desktop-only"> Profile</span>
+                </a>
+            </div>
+        </div>
+        <div id="navMenuProfile" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item bd-navbar-item-documentation" target="_blank" href="https://bulma.io/documentation/">
+                    <span class="is-hidden-desktop-only"> CSS Documentation</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            {% block title %}Hello World{% endblock %}
+        </h1>
+        <p class="subtitle">
+            {% block subtitle %}Welcome to Demo page!{% endblock %}
+        </p>
+        {% block body %}{% endblock %}
+    </div>
+</section>
+
+</body>
+</html>
