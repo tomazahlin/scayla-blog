@@ -67,7 +67,7 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('app_secure_home');
         }
 
-        return $this->render('home/profile_settings.html.twig', [
+        return $this->render('home/profile_changepassword.html.twig', [
             'userSettingsForm' => $changePasswordForm->createView(),
         ]);
     }
