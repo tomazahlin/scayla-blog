@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\UserPasswordType;
+use App\Form\UserSettingsType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfileController extends AbstractController
 {
@@ -13,6 +18,59 @@ class ProfileController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('home/profile.html.twig', ['value' => 'profile page']);
+        return $this->render('home/profile.html.twig', ['user' => $this->getUser()]);
     }
+
+    /**
+     * @Route("/secure/profile/settings", name="app_secure_settings")
+     */
+    public function settings(Request $request): Response
+    {
+        $userSettingsForm = $this->createForm(UserSettingsType::class, $this->getUser());
+
+        $userSettingsForm->handleRequest($request);
+
+        if ($userSettingsForm->isSubmitted() && $userSettingsForm->isValid()) {
+            $userData = $userSettingsForm->getData();
+            $userRepo = $this->getDoctrine()->getRepository(User::class);
+            $userRepo->save($userData);
+
+            $this->addFlash('notice', 'Your changes were successfully saved!');
+            return $this->redirectToRoute('app_secure_home');
+        }
+
+        return $this->render('home/profile_settings.html.twig', [
+            'userSettingsForm' => $userSettingsForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/secure/profile/changepassword", name="app_secure_changepassword")
+     */
+    public function changePassword(Request $request, UserPasswordEncoderInterface $pwEncoder): Response
+    {
+        $currentUser = $this->getUser();
+        $changePasswordForm = $this->createForm(UserPasswordType::class, $currentUser);
+
+        $changePasswordForm->handleRequest($request);
+
+        if ($changePasswordForm->isSubmitted() && $changePasswordForm->isValid()) {
+            $newPassword = $changePasswordForm->get('newPassword')->getData();
+
+            $encodedPassword = $pwEncoder->encodePassword($currentUser, $newPassword);
+            $currentUser->setPassword($encodedPassword);
+
+            $userRepo = $this->getDoctrine()->getRepository(User::class);
+            $userRepo->save($currentUser);
+
+            $this->addFlash('notice', 'Your new password was successfully saved!');
+            return $this->redirectToRoute('app_secure_home');
+        }
+
+        return $this->render('home/profile_changepassword.html.twig', [
+            'userSettingsForm' => $changePasswordForm->createView(),
+        ]);
+    }
+
+
 }

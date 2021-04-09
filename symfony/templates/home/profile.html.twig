@@ -1,4 +1,26 @@
 {% extends "base.html.twig" %}
+
+{% block title -%}
+    Grüezi {{ user.name }}!
+{%- endblock %}
+{% block subtitle -%}This is your profile home!{%- endblock %}
+
 {% block body %}
-{{ value | default('') }}
+    <div class="box">
+        {% for message in app.flashes('notice') %}
+            <div class="notification is-primary">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <a href="{{ path('app_secure_settings') }}">Here</a> you can change your profile and
+        <a href="{{ path('app_secure_changepassword') }}">here</a> you can change your password.
+    </div>
+
+    <div class="box has-text-centered">
+        <b>Enjoy a Random Picture!</b><br>
+        <small><i><a href="{{ path('app_secure_home') }}">enjoy another one!</a></i></small>
+        <figure class="image is-16by9 is-align-self-center" style="max-height: 300px;">
+            <img src="https://picsum.photos/1280/720" alt="random pic">
+        </figure>
+    </div>
 {% endblock %}

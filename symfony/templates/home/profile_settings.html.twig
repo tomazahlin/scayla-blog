@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title -%}
+    Change Profile! <small><i>Well, actually just your name...</i></small>
+{%- endblock %}
+{% block subtitle -%}{%- endblock %}
+
+{% block body %}
+{{ value | default('') }}
+
+    {{ form(userSettingsForm) }}
+
+{% endblock %}

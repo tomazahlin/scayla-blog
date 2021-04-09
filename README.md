@@ -1,6 +1,21 @@
 ## Sample project 
 Symfony 5.2.1 with Docker php 8.0.1, nginx and mysql.
 
+## After installation
+Execute following commands in jc-php
+
+* Create tables ```bin/console doctrine:migrations:migrate```
+* Load Fixtures ```bin/console doctrine:fixtures:load```
+
+There will be 10 users set up ready to login
+
+| username | password |
+|----------|----------|
+| scayla0  | symfony0 |
+| scayla1  | symfony1 |
+| scayla2  | symfony2 |
+| ...      | ...      |
+| scayla9  | symfony9 |
 
 ## For development
 * Checkout project.
