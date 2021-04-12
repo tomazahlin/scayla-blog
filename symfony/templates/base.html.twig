@@ -16,6 +16,13 @@
                 </a>
             </div>
         </div>
+        <div id="navMenuBlog" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item bd-navbar-item-documentation  is-active" href="{{ path('blog_index') }}">
+                    <span class="is-hidden-desktop-only"> Blog</span>
+                </a>
+            </div>
+        </div>
         <div id="navMenuProfile" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item bd-navbar-item-documentation" href="{{ path('app_secure_home') }}">
@@ -40,6 +47,13 @@
 </nav>
 <section class="section">
     <div class="container">
+        {% for message in app.flashes('notice') %}
+            <div class="box">
+                <div class="notification is-primary">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
         <h1 class="title">
             {% block title %}Hello World{% endblock %}
         </h1>

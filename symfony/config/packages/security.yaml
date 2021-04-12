@@ -36,3 +36,6 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/secure/profile, roles: ROLE_USER }
+         - { path: ^/blog/create, roles: ROLE_USER }
+         - { path: ^/blog/[0-9]+/edit, roles: ROLE_USER }
+         - { path: ^/blog/[0-9]+/delete, roles: ROLE_USER }

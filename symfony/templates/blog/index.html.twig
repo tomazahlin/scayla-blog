@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blogs!{% endblock %}
+
+{% block subtitle %}Hello, here are all the blogs!{% endblock %}
+
+{% block body %}
+
+    <ul>
+        {% for blog in blogs %}
+            <li>
+                <a href="{{ path('blog_detail', { 'id': blog.id }) }}">{{ blog.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block subtitle %}{% endblock %}
+
+{% block body %}
+    <p>
+        {{ blog.content }}
+    </p>
+    <p>
+        {% if isAuthor %}
+            <a href="{{ path('blog_edit', { 'id': blog.id }) }}">
+                <button>Edit (author only)</button>
+            </a>
+        {% endif %}
+    </p>
+{% endblock %}

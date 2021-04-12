@@ -7,13 +7,13 @@
 
 {% block body %}
     <div class="box">
-        {% for message in app.flashes('notice') %}
-            <div class="notification is-primary">
-                {{ message }}
-            </div>
-        {% endfor %}
-        <a href="{{ path('app_secure_settings') }}">Here</a> you can change your profile and
-        <a href="{{ path('app_secure_changepassword') }}">here</a> you can change your password.
+        <p>
+            <a href="{{ path('app_secure_settings') }}">Here</a> you can change your profile and
+            <a href="{{ path('app_secure_changepassword') }}">here</a> you can change your password.
+        </p>
+        <p>
+            <b><a href="{{ path('blog_create') }}">Here</a> you can create a new blog!</b>
+        </p>
     </div>
 
     <div class="box has-text-centered">
